@@ -1,0 +1,16 @@
+This package contains 2 programs:
+
+ggrep  
+a Perl-sript to do recursive git grep including submodules
+
+git-grep-recursive.vim
+a vim plugin using ggrep returning search results
+for the word under cursor in a quickfix window
+
+Installation with make, lets you specify vim keymap for plugin.
+
+$ make
+to install in home dir
+
+$ make install-system
+to install, ggrep system-wide
