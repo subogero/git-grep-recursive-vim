@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+# Recursive git-grep output flattened to a simple list with line numbers,
+# thus suitable to replace vim's internal grep.
+
+# git grep with line numbers in actual repo
+open GREP, "git grep -n @ARGV |" or die "$!";
+print while (<GREP>);
+
+# git grep with line numbers recursively in all submodules.
+# Remove 'Entering dir' lines, but use dir as prefix in subsequent lines.
+open GREP, "git submodule foreach --recursive git grep -n @ARGV |" or die "$!";
+while (<GREP>) {
+    if (/Entering '(.+)'/) { $prefix = "$1/" }
+    else                   { print "$prefix$_" }
+}
