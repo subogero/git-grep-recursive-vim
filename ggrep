@@ -16,4 +16,4 @@ while (<GREP>) {
 
 # print result
 if ($hits) { print $hits }
-else       { die }
+else       { exit 1 }
