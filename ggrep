@@ -3,12 +3,12 @@
 # thus suitable to replace vim's internal grep.
 
 # git grep with line numbers in actual repo
-open GREP, "git grep -n @ARGV |" or warn "$!";
+open GREP, "git grep -n \'@ARGV\' |" or warn "$!";
 $hits .= $_ while (<GREP>);
 
 # git grep with line numbers recursively in all submodules.
 # Remove 'Entering dir' lines, but use dir as prefix in subsequent lines.
-open GREP, "git submodule foreach --recursive 'git grep -n @ARGV || :' |" or warn "$!";
+open GREP, "git submodule foreach --recursive 'git grep -n \"\'@ARGV\'\" || :' |" or warn "$!";
 while (<GREP>) {
     if (/Entering '(.+)'/) { $prefix = "$1/" }
     else                   { $hits .= "$prefix$_" }
